@@ -30,19 +30,22 @@ export class MenuPage extends HTMLElement {
         if (app.store.menu) {
             this.root.querySelector("#menu").innerHTML = "";
             for (let category of app.store.menu) {
+                const ulCategory = document.createElement("ul");
                 const liCategory = document.createElement("li");
                 liCategory.innerHTML = `
                     <h3>${category.name}</h3>
                     <ul class='category'>                    
                     </ul>
                 `;
-                this.root.querySelector("#menu").appendChild(liCategory);
+                ulCategory.appendChild(liCategory);
+                this.root.querySelector("#menu").appendChild(ulCategory);
 
                 category.products.forEach(product => {
                     const item = document.createElement("product-item");
                     item.dataset.product = JSON.stringify(product);
                     liCategory.querySelector("ul").appendChild(item);
                 });
+              
             }
         } else {
             this.root.querySelector("#menu").innerHTML = "Loading...";        
